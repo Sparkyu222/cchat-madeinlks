@@ -14,10 +14,10 @@
 #include "color.h"
 #define MSG_SIZE 101
 
+char msgr[MSG_SIZE], msgw[MSG_SIZE], msgend[MSG_SIZE] = "EHV54OUm0nZWBpK", msgchkr[16], msgchk[16] = "Flr8YwZsGNYGe8z"; // Déclaration des différents types messages
 int key = 0;
 int killthr = false;                                                                                // Valeur d'appel de fermeture
 int socketClient;                                                                                   // Initialisation de la variable du socket client
-char msgr[MSG_SIZE], msgw[MSG_SIZE], msgend[MSG_SIZE] = "EHV54OUm0nZWBpK", msgchkr[16], msgchk[16] = "Flr8YwZsGNYGe8z";              // Déclaration des différents types messages
 pthread_t lt, wt;                                                                                   // ID des threads
 
 void term ();                                                                                       // Déclaration de la fonction de fermeture
@@ -45,7 +45,7 @@ int main () {
         }
 
             while (chk1 == 0) {
-                printf("Vous avez bien tapé l'adresse ? (Y/n) ");                                           // Confirmation de syntaxe
+                printf("Vous avez bien tapé l'adresse ? (Y/n) ");                                   // Confirmation de syntaxe
                 scanf("%c",&r);
                 
                 if (r != '\n') {
@@ -197,10 +197,10 @@ void encode() {                                                                 
     }
 }
 
-void decodechk() {                                                                                     // Fonction de déchiffrage de message
+void decodechk() {                                                                                  // Fonction de déchiffrage de message
     int i;
     char msgtmp[MSG_SIZE];                                                                          // Variable de changement de caractère temporaire
-    strcpy(msgtmp,msgchkr);                                                                            // Copiage du message reçu dans la variable temporaire
+    strcpy(msgtmp,msgchkr);                                                                         // Copiage du message reçu dans la variable temporaire
     for (i=0 ; i < MSG_SIZE ; i++ ) {                                                               // Déchifrage
         if (msgtmp[i] == '\0') {                                                                    // Si on atteint la fin de la chaîne, arrêter
             break;
@@ -209,7 +209,7 @@ void decodechk() {                                                              
             msgtmp[i] = msgtmp[i] + key;
         }
     }
-    strcpy(msgchkr,msgtmp);                                                                            // Remplacement du message chiffré par le message déchiffré
+    strcpy(msgchkr,msgtmp);                                                                         // Remplacement du message chiffré par le message déchiffré
 }
 
 void term () {                                                                                      // Fonction de fermeture (CTRL+C et message)

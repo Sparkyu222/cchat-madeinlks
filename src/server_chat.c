@@ -14,11 +14,11 @@
 #include "color.h"
 #define MSG_SIZE 101
 
+char msgr[MSG_SIZE], msgw[MSG_SIZE], msgend[MSG_SIZE] = "EHV54OUm0nZWBpK", msgchk[16] = "Flr8YwZsGNYGe8z";  // Déclaration des différents types messages
 int key;
 int killthr = false;
 int socketServer;
 int socketClient;
-char msgr[MSG_SIZE], msgw[MSG_SIZE], msgend[MSG_SIZE] = "EHV54OUm0nZWBpK", msgchk[16] = "Flr8YwZsGNYGe8z";    // Déclaration des différents types messages
 pthread_t lt, wt;                                                                                   // ID des threads
 
 void term ();                                                                                       // Déclaration de la fonction de terminisaion
