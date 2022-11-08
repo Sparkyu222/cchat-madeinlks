@@ -14,19 +14,21 @@
 #include "color.h"
 #define MSG_SIZE 101
 
+int key = 0;
 int killthr = false;                                                                                // Valeur d'appel de fermeture
 int socketClient;                                                                                   // Initialisation de la variable du socket client
-char msgr[MSG_SIZE], msgw[MSG_SIZE], msgend[MSG_SIZE] = "#-1exitquit";                              // Déclaration des différents types messages
+char msgr[MSG_SIZE], msgw[MSG_SIZE], msgend[MSG_SIZE] = "EHV54OUm0nZWBpK", msgchkr[16], msgchk[16] = "Flr8YwZsGNYGe8z";              // Déclaration des différents types messages
 pthread_t lt, wt;                                                                                   // ID des threads
 
 void term ();                                                                                       // Déclaration de la fonction de fermeture
 void encode();                                                                                      // Déclaration de la fonction de chiffrement
 void decode();                                                                                      // Déclaration de la fonction de déchiffrement
+void decodechk();                                                                                   // Déclaration de la fonction de déchiffrement du message test de synchronisation
 void *listenT (void *vargp);                                                                        // Déclaration de la fontion de réception de messages
 void *writeT (void *vargp);                                                                         // Déclaration de la fonction d'envoie de messges
 
 int main () {
-    int chk1 = 0, chk = 0, chkno = 0, no;
+    int chk1 = 0, chk = 0, chkno = 0, no, synchk=0;
     char SERVERIP[12], r;
     
     puts(YELLOW"Client "RESET"chat madeinlks --- version 3");
@@ -56,13 +58,13 @@ int main () {
                         case '\n' :
                         case 'Y' :
                         case 'y' :
-                        chk = 1;
-                        chk1 = 1;
+                            chk = 1;
+                            chk1 = 1;
                         break;
                         case 'N' :
                         case 'n' :
-                        chk1 = 1;
-                        chkno = 1;
+                            chk1 = 1;
+                            chkno = 1;
                         break;
                         default :
                             puts("Merci de rentrer une réponse valide (y ou n)");
@@ -71,8 +73,18 @@ int main () {
             }
         }
 
+    while ( key < 1 || key > 10 ) {                                                                 // Saisie de la clé
+        puts("Saisissez votre clé de synchronisation (nombre entre 1 et 10)");
+        printf(YELLOW);
+        scanf("%d",&key);
+        printf(RESET);
+        
+        if ( key < 1 || key > 10 ) {
+            puts(RED"Valeur de clé incorrect, le nombre doit être compris entre 1 et 10."RESET);
+        }
+    }
 
-    puts("Connection au serveur en cours...");
+    puts("Tentative de connexion au serveur en cours...");
 
     signal(SIGINT, term);
 
@@ -87,6 +99,19 @@ int main () {
         exit(EXIT_FAILURE);
     }
     printf(GREEN"Connexion avec le serveur effectuée.\n"RESET);
+
+    recv(socketClient, msgchkr, sizeof(msgchkr), 0);
+    decodechk();
+    if (strcmp(msgchkr,msgchk) != 0) {
+        synchk = 1;
+        send(socketClient, &synchk, sizeof(synchk), 0);
+        puts(RED"\t/!\\ Clé de synchronisation différente ! /!\\");
+        puts(RED"Les messages reçus et envoyés seront incorrectement affichés !"RESET);
+    }
+    else {
+        send(socketClient, &synchk, sizeof(synchk), 0);
+    }
+
     puts("");
 
     pthread_create(&lt, NULL, listenT, NULL);                                                       // Initialisation du thread d'envoi de messages
@@ -136,7 +161,7 @@ void decode() {                                                                 
             break;
         }
         else {
-            msgtmp[i] = msgtmp[i] + 3;
+            msgtmp[i] = msgtmp[i] + key;
         }
     }
     strcpy(msgr,msgtmp);                                                                            // Remplacement du message chiffré par le message déchiffré
@@ -153,7 +178,7 @@ void encode() {                                                                 
                 break;
             }
             else {
-                msgtmp[i] = msgtmp[i] - 3;
+                msgtmp[i] = msgtmp[i] - key;
             }
         }
         strcpy(msgw,msgtmp);                                                                        // Remplacement du message non chiffré par le message chiffré
@@ -165,11 +190,26 @@ void encode() {                                                                 
                 break;
             }
             else {
-                msgtmp[i] = msgtmp[i] - 3;
+                msgtmp[i] = msgtmp[i] - key;
             }
         }
         strcpy(msgend,msgtmp);                                                                      // Remplace le message de fermeture en clair par celui du chiffré
     }
+}
+
+void decodechk() {                                                                                     // Fonction de déchiffrage de message
+    int i;
+    char msgtmp[MSG_SIZE];                                                                          // Variable de changement de caractère temporaire
+    strcpy(msgtmp,msgchkr);                                                                            // Copiage du message reçu dans la variable temporaire
+    for (i=0 ; i < MSG_SIZE ; i++ ) {                                                               // Déchifrage
+        if (msgtmp[i] == '\0') {                                                                    // Si on atteint la fin de la chaîne, arrêter
+            break;
+        }
+        else {
+            msgtmp[i] = msgtmp[i] + key;
+        }
+    }
+    strcpy(msgchkr,msgtmp);                                                                            // Remplacement du message chiffré par le message déchiffré
 }
 
 void term () {                                                                                      // Fonction de fermeture (CTRL+C et message)
