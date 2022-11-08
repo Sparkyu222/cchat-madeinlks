@@ -7,7 +7,7 @@ Cette première version permet d'établir une connexion entre deux ordinateurs e
 ---
 
 Avant de compiler :
-Dans la ligne la ligne 36 du fichier "client_chatV1.c", changez l'adresse IP contenue dans les doubles côtes en l'adresse IP du serveur.
+Dans la ligne la ligne 36 du fichier `src/client_chatV1.c`, changez l'adresse IP contenue dans les doubles côtes en l'adresse IP du serveur.
 
 Compilation (dans la racine du projet):
 ```
