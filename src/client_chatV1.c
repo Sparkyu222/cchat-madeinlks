@@ -33,7 +33,7 @@ int main () {
     memset(&socketClient,0,sizeof(socketClient));
     socketClient = socket(AF_INET, SOCK_STREAM, 0);                                                 // Création du socket IPV4, TCP, ?
     struct sockaddr_in addrClient;                                                                  // Structure de l'ip du serveur pour le socket
-    addrClient.sin_addr.s_addr = inet_addr("127.0.0.1");                                            // IP du serveur
+    addrClient.sin_addr.s_addr = inet_addr("127.0.0.1");                                            // IP du serveur                                            [MODIFIER L'IP ICI]
     addrClient.sin_family = AF_INET;                                                                // IPV4
     addrClient.sin_port = htons(30000);                                                             // Port du serveur
     if (connect(socketClient, (const struct sockaddr *)&addrClient, sizeof(addrClient)) == -1 ) {   // Connexion au socket du serveur
