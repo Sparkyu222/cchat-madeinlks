@@ -1,8 +1,8 @@
 # Cchat v1 - simple chat coded in c
 
-Cchat est un simple client/serveur de tchat programmé en c, c'est un programme simple et très probablement mal optimisé.
+Cchat est un client/serveur de tchat programmé en c, c'est un programme simple et très probablement mal optimisé.
 
-Cette première version permet d'établir une connexion entre deux ordinateurs et qu'ils puissent s'envoyer des mesages entre eux en temps réel.
+Cette deuxième version apporte le chiffrage au messages, il déplace de trois caractères dans le code ASCII chaques caractère du message envoyé et les re-déplacent de 3 à la réception de celui-ci sur le client.
 
 ---
 
