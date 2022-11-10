@@ -33,6 +33,8 @@ int main () {
 
     puts(YELLOW"Server "RESET"chat madeinlks --- version 3");
 
+    puts ("");
+    
     while ( key < 1 || key > 10 ) {                                                                 // Saisie de la clé
         puts("Saisissez votre clé de synchronisation (nombre entre 1 et 10)");
         printf(YELLOW);
