@@ -4,23 +4,18 @@ cmake_minimum_required(VERSION 3.7.2)
 #Définition du répertoire où l'on va stocker les exécutables
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/build/)
 
-#Définition des fichiers source à compiler
-file(GLOB APP_SOURCES ${CMAKE_HOME_DIRECTORY}/src/*.c)
-include_directories(${CMAKE_SOURCE_DIR}/include)
+add_library(cclient fclient.c)
+target_include_directories(cclient PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(cclient PRIVATE thrterm)
 
-#Pour chaque fichiers source
-foreach(testsourcefile ${APP_SOURCES})
-    get_filename_component(testname ${testsourcefile} NAME_WE)
-    add_executable(${testname} ${testsourcefile})
+add_library(cserver fserver.c)
+target_include_directories(cserver PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(cserver PRIVATE thrterm)
 
-    # Pour compiler avec des options spécifiques
-    # target_compile_options(${testname} PUBLIC -Wall -pedantic -Werror -Wextra)
+add_library(thrterm thrterm.c)
+target_include_directories(thrterm PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-    # Si vous voulez rajouter une bibliothèque
-     target_link_libraries( ${testname} -lncurses )    
-
-    # cible install ... pour copier le programme dans /usr/local/bin
-    # install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/${testname}
-    # DESTINATION bin
-    # RENAME ${CMAKE_PROJECT_NAME}-${testname})
-endforeach()
+add_executable(cchat cchat.c)
+target_include_directories(cchat PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(cchat PRIVATE cclient)
+target_link_libraries(cchat PRIVATE cserver)
