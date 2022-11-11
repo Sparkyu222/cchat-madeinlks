@@ -1,14 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <pthread.h>
 #include <signal.h>
 #include <stdbool.h>
 
@@ -20,23 +11,23 @@
 
 int main () {
   int choice;
-    signal(SIGINT, term);
-    puts("Cchat "RED"v4"RESET" madeinlks");
-    
-    puts("Sélectionnez votre mode :");
-    scanf("%d",choice);
-    if (choice == 1) {
-      fserver();
+  signal(SIGINT, term);
+  puts("Cchat "RED"v4"RESET" madeinlks");
+
+  puts("Sélectionnez votre mode (1 = Serveur, 0 = Client):");
+  scanf("%d",&choice);
+  if (choice == 1) {
+    fserver();
+  }
+  else {
+    fclient();
+  }
+
+  while (1) {                                                                                     // Boucle qui attent l'arrivée du message de fermeture de la part du client
+    if (killthr == true) {
+      term();
     }
-    else {
-      fclient();
-    }
-    
-    while (1) {                                                                                     // Boucle qui attent l'arrivée du message de fermeture de la part du client
-      if (killthr == true) {
-        term();
-      }
-    }
+  }
 
 return EXIT_SUCCESS;
 }

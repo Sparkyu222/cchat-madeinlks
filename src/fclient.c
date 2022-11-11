@@ -21,7 +21,7 @@ void fclient () {
     int chk1 = 0, chk = 0, chkno = 0, no, synchk=0;
     char SERVERIP[12], r;
 
-    while (chk == 0) {                                                                              // Demande de saisie de l'IP du serveur
+    while (chk == 0) {                                                                                      // Demande de saisie de l'IP du serveur
         if (chkno == 1) {chk1 = 0;}
         printf("Entrez l'adresse du serveur : \n"YELLOW);
         scanf("%11s",SERVERIP);
@@ -32,7 +32,7 @@ void fclient () {
         }
 
             while (chk1 == 0) {
-                printf("Vous avez bien tapé l'adresse ? (Y/n) ");                                   // Confirmation de syntaxe
+                printf("Vous avez bien tapé l'adresse ? (Y/n) ");                                           // Confirmation de syntaxe
                 scanf("%c",&r);
                 
                 if (r != '\n') {
@@ -60,7 +60,7 @@ void fclient () {
             }
         }
 
-    while ( key < 1 || key > 10 ) {                                                                 // Saisie de la clé
+    while ( key < 1 || key > 10 ) {                                                                         // Saisie de la clé
         puts("Saisissez votre clé de synchronisation (nombre entre 1 et 10)");
         printf(YELLOW);
         scanf("%d",&key);
@@ -74,13 +74,13 @@ void fclient () {
     puts("Tentative de connexion au serveur en cours...");
 
     memset(&socketClient,0,sizeof(socketClient));
-    socketClient = socket(AF_INET, SOCK_STREAM, 0);                                                 // Création du socket IPV4, TCP, ?
-    struct sockaddr_in addrClient;                                                                  // Structure de l'ip du serveur pour le socket
-    addrClient.sin_addr.s_addr = inet_addr(SERVERIP);                                               // IP du serveur
-    addrClient.sin_family = AF_INET;                                                                // IPV4
-    addrClient.sin_port = htons(30000);                                                             // Port du serveur
-    if (connect(socketClient, (const struct sockaddr *)&addrClient, sizeof(addrClient)) == -1 ) {   // Connexion au socket du serveur
-        puts(RED"Impossible de se connecter au socket distant."RESET);                              // "If" pour savoir si la connexion s'est effectué
+    socketClient = socket(AF_INET, SOCK_STREAM, 0);                                                         // Création du socket IPV4, TCP, ?
+    struct sockaddr_in addrClient;                                                                          // Structure de l'ip du serveur pour le socket
+    addrClient.sin_addr.s_addr = inet_addr(SERVERIP);                                                       // IP du serveur
+    addrClient.sin_family = AF_INET;                                                                        // IPV4
+    addrClient.sin_port = htons(30000);                                                                     // Port du serveur
+    if (connect(socketClient, (const struct sockaddr *)&addrClient, sizeof(addrClient)) == -1 ) {           // Connexion au socket du serveur
+        puts(RED"Impossible de se connecter au socket distant."RESET);                                      // "If" pour savoir si la connexion s'est effectué
         exit(EXIT_FAILURE);
     }
     printf(GREEN"Connexion avec le serveur effectuée.\n"RESET);
@@ -99,6 +99,6 @@ void fclient () {
 
     puts("");
 
-    pthread_create(&lt, NULL, listenT, NULL);                                                       // Initialisation du thread d'envoi de messages
-    pthread_create (&wt, NULL, writeT, NULL);                                                       // Initialisation du thread de reception de messages
+    pthread_create(&lt, NULL, listenT, NULL);                                                               // Initialisation du thread d'envoi de messages
+    pthread_create (&wt, NULL, writeT, NULL);                                                               // Initialisation du thread de reception de messages
 }

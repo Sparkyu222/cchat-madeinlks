@@ -23,8 +23,8 @@ void fserver () {
     puts(YELLOW"Server "RESET"chat madeinlks --- version 3");
 
     puts ("");
-    
-    while ( key < 1 || key > 10 ) {                                                                 // Saisie de la clé
+
+    while ( key < 1 || key > 10 ) {                                                                         // Saisie de la clé
         puts("Saisissez votre clé de synchronisation (nombre entre 1 et 10)");
         printf(YELLOW);
         scanf("%d",&key);
@@ -37,20 +37,20 @@ void fserver () {
 
     puts("Attente d'une connexion...");
       
-    memset(&socketServer,0,sizeof(socketServer));                                                   // Mise à zéro du socket Server 
-    memset(&socketClient,0,sizeof(socketClient));                                                   // Mise à zéro du socket Client
+    memset(&socketServer,0,sizeof(socketServer));                                                           // Mise à zéro du socket Server 
+    memset(&socketClient,0,sizeof(socketClient));                                                           // Mise à zéro du socket Client
 
-    socketServer = socket(AF_INET, SOCK_STREAM, 0);                                                 // Création du socket du serveur IPV4, TCP
-    struct sockaddr_in addrServer;                                                                  // Structure de l'IP du serveur pour le socket
-    addrServer.sin_addr.s_addr = htonl(INADDR_ANY);                                                 // Définition de de l'ip d'écoute: "htonl(INADDR_ANY)" pour ne pas définir d'ip spécifique au socket
-    addrServer.sin_family = AF_INET;                                                                // IPV4
-    addrServer.sin_port = htons(30000);                                                             // Définition du port                                          
-    bind(socketServer, (const struct sockaddr *)&addrServer, sizeof(addrServer));                   // Assignation du socket
-    listen(socketServer, 1);                                                                        // Écoute sur le socket
+    socketServer = socket(AF_INET, SOCK_STREAM, 0);                                                         // Création du socket du serveur IPV4, TCP
+    struct sockaddr_in addrServer;                                                                          // Structure de l'IP du serveur pour le socket
+    addrServer.sin_addr.s_addr = htonl(INADDR_ANY);                                                         // Définition de de l'ip d'écoute: "htonl(INADDR_ANY)" pour ne pas définir d'ip spécifique au socket
+    addrServer.sin_family = AF_INET;                                                                        // IPV4
+    addrServer.sin_port = htons(30000);                                                                     // Définition du port                                          
+    bind(socketServer, (const struct sockaddr *)&addrServer, sizeof(addrServer));                           // Assignation du socket
+    listen(socketServer, 1);                                                                                // Écoute sur le socket
 
-    struct sockaddr_in addrClient;                                                                  // Structure pour le socket du client
-    socklen_t csize = sizeof(addrClient);                                                           // Définition de la taille des paramètres pour le socket du client
-    socketClient = accept(socketServer, (struct sockaddr *)&addrClient, &csize);                    // Attente de connexion auprès du client                                      
+    struct sockaddr_in addrClient;                                                                          // Structure pour le socket du client
+    socklen_t csize = sizeof(addrClient);                                                                   // Définition de la taille des paramètres pour le socket du client
+    socketClient = accept(socketServer, (struct sockaddr *)&addrClient, &csize);                            // Attente de connexion auprès du client                                      
     printf(GREEN"Connexion avec le client effectuée.\n"RESET);
 
     encodechk();
@@ -64,6 +64,6 @@ void fserver () {
 
     puts("");
 
-    pthread_create(&lt, NULL, listenT, NULL);                                                       // Initialisation du thread d'envoi de messages
-    pthread_create (&wt, NULL, writeT, NULL);                                                       // Initialisation du thread de reception de messages
+    pthread_create(&lt, NULL, listenT, NULL);                                                               // Initialisation du thread d'envoi de messages
+    pthread_create (&wt, NULL, writeT, NULL);                                                               // Initialisation du thread de reception de messages
 }
