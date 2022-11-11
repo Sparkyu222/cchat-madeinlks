@@ -11,9 +11,13 @@
 #include <pthread.h>
 #include <signal.h>
 #include <stdbool.h>
+#include <color.h>
+#include <var.h>
+#include <thrterm.h>
 
 int main () {
-    puts("Ok, ça a l'air de fonctionner");
-
+//    signal(SIGINT, term);
+    puts("Cchat "RED"v4"RESET" madeinlks");
+    
 return EXIT_SUCCESS;
 }

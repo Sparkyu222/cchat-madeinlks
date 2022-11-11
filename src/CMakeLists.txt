@@ -6,13 +6,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/build/)
 
 add_library(cclient fclient.c)
 target_include_directories(cclient PUBLIC ${CMAKE_SOURCE_DIR}/include)
-target_link_libraries(cclient PRIVATE thrterm)
 
 add_library(cserver fserver.c)
 target_include_directories(cserver PUBLIC ${CMAKE_SOURCE_DIR}/include)
-target_link_libraries(cserver PRIVATE thrterm)
 
-add_library(thrterm thrterm.c)
+add_library(thrterm fthrterm.c)
 target_include_directories(thrterm PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
 add_executable(cchat cchat.c)
