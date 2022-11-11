@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 #include "color.h"
 #include "thrterm.h"
@@ -17,19 +18,20 @@ int main (int argc, char **argv) {
     puts("Utilisation :");
     puts("-s\t -- Active le mode serveur");
     puts("-c\t -- Active le mode client");
+    puts("-v\t -- Affiche la version actuelle de Cchat");
     puts("-h\t -- Affiche cette page d'aide");
     exit(EXIT_FAILURE);
   }
   else {
-    while ((opt = getopt (argc, argv, ":sch")) != -1) {
+    while ((opt = getopt (argc, argv, ":schv")) != -1) {
       switch (opt) {
         case 's' :
-          puts("Cchat "RED"v4"RESET" madeinlks");
+          puts("Cchat madeinlks");
           puts("Mode serveur activé");
           fserver();
           break;
         case 'c' :
-          puts("Cchat "RED"v4"RESET" madeinlks");
+          puts("Cchat madeinlks");
           puts("Mode client activé");
           fclient();
           break;
@@ -37,7 +39,12 @@ int main (int argc, char **argv) {
           puts("Utilisation :");
           puts("-s\t -- Active le mode serveur");
           puts("-c\t -- Active le mode client");
+          puts("-v\t -- Affiche la version actuelle de Cchat");
           puts("-h\t -- Affiche cette page d'aide");
+          exit(EXIT_SUCCESS);
+          break;
+        case 'v':
+          puts("Cchat madeinlks "RED"version 4"RESET"");
           exit(EXIT_SUCCESS);
           break;
         default :
@@ -45,6 +52,7 @@ int main (int argc, char **argv) {
           puts("Utilisation :");
           puts("-s\t -- Active le mode serveur");
           puts("-c\t -- Active le mode client");
+          puts("-v\t -- Affiche la version actuelle de Cchat");
           puts("-h\t -- Affiche cette page d'aide");
           exit(EXIT_FAILURE);
       }
@@ -52,7 +60,6 @@ int main (int argc, char **argv) {
   }
 
   signal(SIGINT, term);
-  puts("Cchat "RED"v4"RESET" madeinlks");
 
   while (1) {                                                                                     // Boucle qui attent l'arrivée du message de fermeture de la part du client
     if (killthr == true) {

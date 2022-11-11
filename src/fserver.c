@@ -20,10 +20,6 @@
 void fserver () {
     int synchk=0;
 
-    puts(YELLOW"Server "RESET"chat madeinlks --- version 3");
-
-    puts ("");
-
     while ( key < 1 || key > 10 ) {                                                                         // Saisie de la clé
         puts("Saisissez votre clé de synchronisation (nombre entre 1 et 10)");
         printf(YELLOW);
@@ -36,7 +32,7 @@ void fserver () {
     }
 
     puts("Attente d'une connexion...");
-      
+
     memset(&socketServer,0,sizeof(socketServer));                                                           // Mise à zéro du socket Server 
     memset(&socketClient,0,sizeof(socketClient));                                                           // Mise à zéro du socket Client
 
