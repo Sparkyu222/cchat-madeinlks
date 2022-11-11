@@ -31,6 +31,7 @@ void fserver () {
         }
     }
 
+    puts(CLEAR);
     puts("Attente d'une connexion...");
 
     memset(&socketServer,0,sizeof(socketServer));                                                           // Mise à zéro du socket Server 

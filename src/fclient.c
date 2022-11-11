@@ -71,6 +71,7 @@ void fclient () {
         }
     }
 
+    puts(CLEAR);
     puts("Tentative de connexion au serveur en cours...");
 
     memset(&socketClient,0,sizeof(socketClient));
