@@ -12,10 +12,10 @@
 #include <signal.h>
 #include <stdbool.h>
 
-#include <cclient.h>
-#include <color.h>
-#include <thrterm.h>
-#include <var.h>
+#include "cclient.h"
+#include "color.h"
+#include "thrterm.h"
+#include "var.h"
 
 void fclient () {
     int chk1 = 0, chk = 0, chkno = 0, no, synchk=0;

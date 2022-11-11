@@ -12,11 +12,11 @@
 #include <signal.h>
 #include <stdbool.h>
 
-#include <color.h>
-#include <var.h>
-#include <thrterm.h>
-#include <cserver.h>
-#include <cclient.h>
+#include "color.h"
+#include "thrterm.h"
+#include "var.h"
+#include "cserver.h"
+#include "cclient.h"
 
 int main () {
     signal(SIGINT, term);

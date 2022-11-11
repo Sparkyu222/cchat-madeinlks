@@ -13,8 +13,12 @@ target_include_directories(cserver PUBLIC ${CMAKE_SOURCE_DIR}/include)
 add_library(thrterm fthrterm.c)
 target_include_directories(thrterm PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
+add_library(var var.c)
+target_include_directories(var PUBLIC ${CMAKE_SOURCE_DIR}/include)
+
 add_executable(cchat cchat.c)
 target_include_directories(cchat PUBLIC ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(cchat PRIVATE cclient)
 target_link_libraries(cchat PRIVATE cserver)
 target_link_libraries(cchat PRIVATE thrterm)
+target_link_libraries(cchat PRIVATE var)

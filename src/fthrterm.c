@@ -11,9 +11,10 @@
 #include <pthread.h>
 #include <signal.h>
 #include <stdbool.h>
-#include <color.h>
-#include <var.h>
-#include <thrterm.h>
+
+#include "color.h"
+#include "var.h"
+#include "thrterm.h"
 
 void *listenT (void *vargp) {                                                                       // Thread de réception de messages
     while (1) { 

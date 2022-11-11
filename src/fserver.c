@@ -12,10 +12,10 @@
 #include <signal.h>
 #include <stdbool.h>
 
-#include <cserver.h>
-#include <color.h>
-#include <thrterm.h>
-#include <var.h>
+#include "cserver.h"
+#include "color.h"
+#include "thrterm.h"
+#include "var.h"
 
 void fserver () {
     int synchk=0;
