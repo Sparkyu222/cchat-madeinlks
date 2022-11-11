@@ -11,13 +11,24 @@
 #include <pthread.h>
 #include <signal.h>
 #include <stdbool.h>
+
 #include <color.h>
 #include <var.h>
 #include <thrterm.h>
+#include <cserver.h>
+#include <cclient.h>
 
 int main () {
-//    signal(SIGINT, term);
+    signal(SIGINT, term);
     puts("Cchat "RED"v4"RESET" madeinlks");
     
+    fserver();
+    
+    while (1) {                                                                                     // Boucle qui attent l'arrivée du message de fermeture de la part du client
+      if (killthr == true) {
+        term();
+      }
+    }
+
 return EXIT_SUCCESS;
 }

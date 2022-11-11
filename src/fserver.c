@@ -11,7 +11,8 @@
 #include <pthread.h>
 #include <signal.h>
 #include <stdbool.h>
-#include <cclient.h>
+
+#include <cserver.h>
 #include <color.h>
 #include <thrterm.h>
 #include <var.h>
@@ -65,10 +66,4 @@ void fserver () {
 
     pthread_create(&lt, NULL, listenT, NULL);                                                       // Initialisation du thread d'envoi de messages
     pthread_create (&wt, NULL, writeT, NULL);                                                       // Initialisation du thread de reception de messages
-
-    while (1) {                                                                                     // Boucle qui attent l'arrivée du message de fermeture de la part du client
-      if (killthr == true) {
-        term();
-      }
-    }
 }
