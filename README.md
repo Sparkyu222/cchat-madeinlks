@@ -2,7 +2,7 @@
 
 Cchat est un client/serveur de tchat programmé en c, c'est un programme simple et très probablement mal optimisé.
 
-Nouvelles fonctionnalités apporté dans cette version :
+Nouvelles fonctionnalités apportées dans cette version :
 - Clé de synchronisation : Possibilité de choisir le nombre de lettre à déplacer (entre 1 à 10 lettres) pour le chiffrement
 - Un message test sera envoyé pour voir si le client et le serveur dispose de la même clé de synchronisation
 - Le client demande désormais d'indiquer l'adresse IP du serveur
