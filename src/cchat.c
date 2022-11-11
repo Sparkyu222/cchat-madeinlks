@@ -19,10 +19,18 @@
 #include "cclient.h"
 
 int main () {
+  int choice;
     signal(SIGINT, term);
     puts("Cchat "RED"v4"RESET" madeinlks");
     
-    fserver();
+    puts("Sélectionnez votre mode :");
+    scanf("%d",choice);
+    if (choice == 1) {
+      fserver();
+    }
+    else {
+      fclient();
+    }
     
     while (1) {                                                                                     // Boucle qui attent l'arrivée du message de fermeture de la part du client
       if (killthr == true) {
