@@ -20,7 +20,7 @@
 void fserver () {
     int synchk = 0, no;
 
-    while ( key < 1 || key > 10 ) {                                                                         // Saisie de la clé
+    while ( key < 1 || key > 10 ) {                                                                         // Saisie de la clé de synchronisation
         puts("Saisissez votre clé de synchronisation (nombre entre 1 et 10)");
         printf(YELLOW);
         scanf("%d",&key);
@@ -31,7 +31,7 @@ void fserver () {
         }
     }
 
-    if (key != '\n') {
+    if (key != '\n') {                                                                                      // Permet de "manger" les caractères en trop pour éviter la répétion du switch case
         while ((no = getchar()) != '\n');
     }
 
@@ -56,11 +56,11 @@ void fserver () {
     socketClient = accept(socketServer, (struct sockaddr *)&addrClient, &csize);                            // Attente de connexion auprès du client                                      
     printf(GREEN"Connexion avec le client effectuée.\n"RESET);
 
-    encodechk();
-    send(socketClient, msgchk, sizeof(msgchk), 0);
+    encodechk();                                                                                            // Chiffrage du message test en utilisant la clé de synchronisation
+    send(socketClient, msgchk, sizeof(msgchk), 0);                                                          // Envoie au client le message test
 
-    recv(socketClient, &synchk, sizeof(synchk), 0);
-    if (synchk == 1) {
+    recv(socketClient, &synchk, sizeof(synchk), 0);                                                         // Réception de la réponse du client (si la clé de synchronisation est identique)
+    if (synchk == 1) {                                                                                      // Test pour savoir si la clé de synchronisation ; affiche seulement le message si la clé n'est pas identique
         int chk2 = 0;
         char rs;
         puts(RED"\t/!\\ Clé de synchronisation différente ! /!\\");
@@ -69,7 +69,7 @@ void fserver () {
         while (chk2 == 0) {
             printf(RED"Continuer ? "RESET"(y/N) ");
             scanf("%c",&rs);
-                
+
             if (rs != '\n') {
                 while ((no = getchar()) != '\n');
             }

@@ -18,8 +18,8 @@
 #include "var.h"
 
 void fclient () {
-    int chk1 = 0, chk = 0, chkno = 0, no, synchk=0;
-    char SERVERIP[12], r;
+    int chk1 = 0, chk = 0, chkno = 0, no, synchk=0;                                                         // Initiation des variables de confirmation
+    char SERVERIP[12], r;                                                                                   // Chaîne de caractère qui acceuillera l'adresse IP sur serveur
 
     while (chk == 0) {                                                                                      // Demande de saisie de l'IP du serveur
         if (chkno == 1) {chk1 = 0;}
@@ -27,12 +27,12 @@ void fclient () {
         scanf("%11s",SERVERIP);
         printf(RESET);
 
-        if (r != '\n') {
+        if (r != '\n') {                                                                                    // Permet de "manger" les caractères en trop pour éviter la répétion du switch case
         while ((no = getchar()) != '\n');
         }
 
-            while (chk1 == 0) {
-                printf("Vous avez bien tapé l'adresse ? (Y/n) ");                                           // Confirmation de syntaxe
+            while (chk1 == 0) {                                                                             // Switch case de confirmation de syntaxe
+                printf("Vous avez bien tapé l'adresse ? (Y/n) ");
                 scanf("%c",&r);
                 
                 if (r != '\n') {
@@ -60,7 +60,7 @@ void fclient () {
             }
         }
 
-    while ( key < 1 || key > 10 ) {                                                                         // Saisie de la clé
+    while ( key < 1 || key > 10 ) {                                                                         // Saisie de la clé de synchronisation
         puts("Saisissez votre clé de synchronisation (nombre entre 1 et 10)");
         printf(YELLOW);
         scanf("%d",&key);
@@ -71,7 +71,6 @@ void fclient () {
         }
     }
 
-
     if (key != '\n') {
         while ((no = getchar()) != '\n');
     }
@@ -79,7 +78,7 @@ void fclient () {
     puts(CLEAR);
     puts("Tentative de connexion au serveur en cours...");
 
-    memset(&socketClient,0,sizeof(socketClient));
+    memset(&socketClient,0,sizeof(socketClient));                                                           // Mise à zéro du socket du client
     socketClient = socket(AF_INET, SOCK_STREAM, 0);                                                         // Création du socket IPV4, TCP, ?
     struct sockaddr_in addrClient;                                                                          // Structure de l'ip du serveur pour le socket
     addrClient.sin_addr.s_addr = inet_addr(SERVERIP);                                                       // IP du serveur
@@ -91,19 +90,19 @@ void fclient () {
     }
     printf(GREEN"Connexion avec le serveur effectuée.\n"RESET);
 
-    recv(socketClient, msgchkr, sizeof(msgchkr), 0);
-    decodechk();
-    if (strcmp(msgchkr,msgchk) != 0) {
+    recv(socketClient, msgchkr, sizeof(msgchkr), 0);                                                        // Réception du message test pour vérifier si la clé de synchronisation est identique
+    decodechk();                                                                                            // Tentative de déchiffrage du message test en utilisant la clé de synchronisation
+    if (strcmp(msgchkr,msgchk) != 0) {                                                                      // Comparaison du message test "déchiffré" à celui du programme, ici si il est faux il affiche un message et un choix
         int chk2 = 0;
         synchk = 1;
-        send(socketClient, &synchk, sizeof(synchk), 0);
+        send(socketClient, &synchk, sizeof(synchk), 0);                                                     // Envoie au serveur que la clé est différente
         puts(RED"\t/!\\ Clé de synchronisation différente ! /!\\");
         puts(RED"Les messages reçus et envoyés seront incorrectement affichés !"RESET);
 
         while (chk2 == 0) {
             printf(RED"Continuer ? "RESET"(y/N) ");
             scanf("%c",&r);
-                
+
             if (r != '\n') {
                 while ((no = getchar()) != '\n');
             }
@@ -125,7 +124,7 @@ void fclient () {
         }
     }
 
-    else {
+    else {                                                                                                  // Si le message test déchiffré correspond au message dans le programme, envoyer au serveur que la clé est identique
         send(socketClient, &synchk, sizeof(synchk), 0);
     }
 
@@ -133,4 +132,5 @@ void fclient () {
 
     pthread_create(&lt, NULL, listenT, NULL);                                                               // Initialisation du thread d'envoi de messages
     pthread_create (&wt, NULL, writeT, NULL);                                                               // Initialisation du thread de reception de messages
+
 }
