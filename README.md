@@ -10,8 +10,8 @@ Nouvelles fonctionnalités apportées dans cette version :
 
 
 Utilisation :
-Lancer directement l'exécutable pour afficher le menu et choisir le mode souhaité. <br />
-Ou vous pouvez utiliser des arguments : <br />
+- Lancer directement l'exécutable pour afficher le menu et choisir le mode souhaité.
+- Ou vous pouvez utiliser des arguments :
 ```1
 ./cchat -s                  // Active le mode serveur
 ./cchat -c                  // Active le mode client
