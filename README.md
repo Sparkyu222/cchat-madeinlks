@@ -8,10 +8,10 @@ Nouvelles fonctionnalités apportées dans cette version :
 - Un menu s'affiche lors du lancement du programme
 - On peut sinon utiliser l'argument "-s" pour le mode serveur ou "-c" pour mode le client
 
-Utilisation :
-Lancer directement l'exécutable pour afficher le menu et choisir le mode souhaité.
 
-Ou vous pouvez utiliser des arguments :
+Utilisation :
+Lancer directement l'exécutable pour afficher le menu et choisir le mode souhaité. <br />
+Ou vous pouvez utiliser des arguments : <br />
 ```1
 ./cchat -s                  // Active le mode serveur
 ./cchat -c                  // Active le mode client
