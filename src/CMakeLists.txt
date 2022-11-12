@@ -1,26 +1,28 @@
-#Version de CMake
+# Version de CMake
 cmake_minimum_required(VERSION 3.7.2)
 
-#Définition du répertoire où l'on va stocker les exécutables
+# Définition du répertoire où l'on va stocker les exécutables, les libs et les archives
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/build/)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib)
 
-#Définition des fichiers source à compiler
-file(GLOB APP_SOURCES ${CMAKE_HOME_DIRECTORY}/src/*.c)
-include_directories(${CMAKE_SOURCE_DIR}/include)
+# Définition des libs
+add_library(cclient fclient.c)
+target_include_directories(cclient PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-#Pour chaque fichiers source
-foreach(testsourcefile ${APP_SOURCES})
-    get_filename_component(testname ${testsourcefile} NAME_WE)
-    add_executable(${testname} ${testsourcefile})
+add_library(cserver fserver.c)
+target_include_directories(cserver PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-    # Pour compiler avec des options spécifiques
-    # target_compile_options(${testname} PUBLIC -Wall -pedantic -Werror -Wextra)
+add_library(thrterm fthrterm.c)
+target_include_directories(thrterm PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-    # Si vous voulez rajouter une bibliothèque
-     target_link_libraries( ${testname} -lncurses )    
+add_library(var var.c)
+target_include_directories(var PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-    # cible install ... pour copier le programme dans /usr/local/bin
-    # install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/${testname}
-    # DESTINATION bin
-    # RENAME ${CMAKE_PROJECT_NAME}-${testname})
-endforeach()
+# Définition de l'exécutable et des libs associé à celui-ci
+add_executable(cchat cchat.c)
+target_include_directories(cchat PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(cchat PRIVATE cclient)
+target_link_libraries(cchat PRIVATE cserver)
+target_link_libraries(cchat PRIVATE thrterm)
+target_link_libraries(cchat PRIVATE var)

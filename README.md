@@ -1,11 +1,21 @@
-# Cchat v3 - simple chat coded in c
+# Cchat v4 - simple chat coded in c
 
-Cchat est un client/serveur de tchat programmé en c, c'est un programme simple et très probablement mal optimisé.
+Cchat est un client/serveur de tchat programmé en C, c'est un programme simple et très probablement mal optimisé.
 
 Nouvelles fonctionnalités apportées dans cette version :
-- Clé de synchronisation : Possibilité de choisir le nombre de lettre à déplacer (entre 1 à 10 lettres) pour le chiffrement
-- Un message test sera envoyé pour voir si le client et le serveur dispose de la même clé de synchronisation
-- Le client demande désormais d'indiquer l'adresse IP du serveur
+- Réorganisation des fichiers du projet en utilisant plus profédement cmake
+- Combinaison du client et du serveur en un seul et même exécutable
+- Un menu s'affiche lors du lancement du programme
+- On peut sinon utiliser l'argument "-s" pour le mode serveur ou "-c" pour mode le client
+
+
+Utilisation :
+- Lancer directement l'exécutable pour afficher le menu et choisir le mode souhaité.
+- Ou vous pouvez utiliser des arguments :
+```1
+./cchat -s                  // Active le mode serveur
+./cchat -c                  // Active le mode client
+```
 
 ---
 
