@@ -18,7 +18,7 @@
 #include "var.h"
 
 void fserver () {
-    int synchk=0;
+    int synchk = 0, no;
 
     while ( key < 1 || key > 10 ) {                                                                         // Saisie de la clé
         puts("Saisissez votre clé de synchronisation (nombre entre 1 et 10)");
@@ -30,6 +30,12 @@ void fserver () {
             puts(RED"Valeur de clé incorrecte, le nombre doit être compris entre 1 et 10."RESET);
         }
     }
+
+    if (key != '\n') {
+        while ((no = getchar()) != '\n');
+    }
+
+
 
     puts(CLEAR);
     puts("Attente d'une connexion...");
@@ -55,8 +61,34 @@ void fserver () {
 
     recv(socketClient, &synchk, sizeof(synchk), 0);
     if (synchk == 1) {
+        int chk2 = 0;
+        char rs;
         puts(RED"\t/!\\ Clé de synchronisation différente ! /!\\");
         puts(RED"Les messages reçus et envoyés seront incorrectement affichés !"RESET);
+
+        while (chk2 == 0) {
+            printf(RED"Continuer ? "RESET"(y/N) ");
+            scanf("%c",&rs);
+                
+            if (rs != '\n') {
+                while ((no = getchar()) != '\n');
+            }
+
+            switch (rs) {
+                case 'Y' :
+                case 'y' :
+                    chk2 = 1;
+                    break;
+                case '\n' :
+                case 'N' :
+                case 'n' :
+                    exit(EXIT_SUCCESS);
+                    break;
+                default :
+                    puts("Merci de rentrer une réponse valide ("YELLOW"y"RESET" ou "YELLOW"n"RESET")");
+                    break;
+            }
+        }
     }
 
     puts("");

@@ -71,6 +71,11 @@ void fclient () {
         }
     }
 
+
+    if (key != '\n') {
+        while ((no = getchar()) != '\n');
+    }
+
     puts(CLEAR);
     puts("Tentative de connexion au serveur en cours...");
 
@@ -89,11 +94,37 @@ void fclient () {
     recv(socketClient, msgchkr, sizeof(msgchkr), 0);
     decodechk();
     if (strcmp(msgchkr,msgchk) != 0) {
+        int chk2 = 0;
         synchk = 1;
         send(socketClient, &synchk, sizeof(synchk), 0);
         puts(RED"\t/!\\ Clé de synchronisation différente ! /!\\");
         puts(RED"Les messages reçus et envoyés seront incorrectement affichés !"RESET);
+
+        while (chk2 == 0) {
+            printf(RED"Continuer ? "RESET"(y/N) ");
+            scanf("%c",&r);
+                
+            if (r != '\n') {
+                while ((no = getchar()) != '\n');
+            }
+
+            switch (r) {
+                case 'Y' :
+                case 'y' :
+                    chk2 = 1;
+                    break;
+                case '\n' :
+                case 'N' :
+                case 'n' :
+                    exit(EXIT_SUCCESS);
+                    break;
+                default :
+                    puts("Merci de rentrer une réponse valide ("YELLOW"y"RESET" ou "YELLOW"n"RESET")");
+                    break;
+            }
+        }
     }
+
     else {
         send(socketClient, &synchk, sizeof(synchk), 0);
     }
