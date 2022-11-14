@@ -24,7 +24,7 @@ void fclient () {
     while (chk == 0) {                                                                                      // Demande de saisie de l'IP du serveur
         if (chkno == 1) {chk1 = 0;}
         printf("Entrez l'adresse du serveur : \n"YELLOW);
-        scanf("%11s",SERVERIP);
+        scanf("%16s",SERVERIP);
         printf(RESET);
 
         if (r != '\n') {                                                                                    // Permet de "manger" les caractères en trop pour éviter la répétion du switch case
