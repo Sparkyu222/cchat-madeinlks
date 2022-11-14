@@ -19,7 +19,7 @@
 
 void fclient () {
     int chk1 = 0, chk = 0, chkno = 0, no, synchk=0;                                                         // Initiation des variables de confirmation
-    char SERVERIP[12], r;                                                                                   // Chaîne de caractère qui acceuillera l'adresse IP sur serveur
+    char SERVERIP[16], r;                                                                                   // Chaîne de caractère qui acceuillera l'adresse IP sur serveur
 
     while (chk == 0) {                                                                                      // Demande de saisie de l'IP du serveur
         if (chkno == 1) {chk1 = 0;}
