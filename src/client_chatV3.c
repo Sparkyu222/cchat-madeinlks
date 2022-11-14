@@ -29,7 +29,7 @@ void *writeT (void *vargp);                                                     
 
 int main () {
     int chk1 = 0, chk = 0, chkno = 0, no, synchk=0;
-    char SERVERIP[12], r;
+    char SERVERIP[16], r;
     
     puts(YELLOW"Client "RESET"chat madeinlks --- version 3");
     puts("");
@@ -37,7 +37,7 @@ int main () {
     while (chk == 0) {                                                                              // Demande de saisie de l'IP du serveur
         if (chkno == 1) {chk1 = 0;}
         printf("Entrez l'adresse du serveur : \n"YELLOW);
-        scanf("%11s",SERVERIP);
+        scanf("%16s",SERVERIP);
         printf(RESET);
 
         if (r != '\n') {
