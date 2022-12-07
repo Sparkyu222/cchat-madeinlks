@@ -27,14 +27,12 @@ int main (int argc, char **argv) {
       switch (opt) {
         case 's' :                                                                                            // -s : active le mode "serveur"
           menu = false;
-          puts("Cchat madeinlks");
-          puts("Mode serveur activé");
+          puts("Cchat madeinlks - Mode "YELLOW"serveur"RESET" ");
           fserver();
           break;
         case 'c' :                                                                                            // -c : active le mode "client"
           menu = false;
-          puts("Cchat madeinlks");
-          puts("Mode client activé");
+          puts("Cchat madeinlks - Mode "YELLOW"client"RESET);
           fclient();
           break;
         case 'h' :                                                                                            // -h : affiche l'aide
