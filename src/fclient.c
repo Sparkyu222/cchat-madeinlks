@@ -85,8 +85,22 @@ void fclient () {
     addrClient.sin_family = AF_INET;                                                                        // IPV4
     addrClient.sin_port = htons(30000);                                                                     // Port du serveur
     if (connect(socketClient, (const struct sockaddr *)&addrClient, sizeof(addrClient)) == -1 ) {           // Connexion au socket du serveur
-        puts(RED"Impossible de se connecter au socket distant."RESET);                                      // "If" pour savoir si la connexion s'est effectué
-        exit(EXIT_FAILURE);
+        puts(RED"Impossible de se connecter au serveur distant."RESET);                                      // "If" pour savoir si la connexion s'est effectué
+        close(socketClient);
+
+        sleep(5);
+
+        for ( int recon = 1 ; recon <= 5 ; recon ++ ) {
+            socketClient = socket(AF_INET, SOCK_STREAM, 0);
+            if (connect(socketClient, (const struct sockaddr *)&addrClient, sizeof(addrClient)) == -1 ) {
+                printf(RED"Tentative de connexion n°%d/5 échouée...\n",recon);
+                close(socketClient);
+
+                sleep(5);
+            } else {
+                recon = 6;
+            }
+        }
     }
     printf(GREEN"Connexion avec le serveur effectuée.\n"RESET);
 
